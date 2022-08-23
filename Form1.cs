@@ -8,8 +8,8 @@ namespace MultiCalc
     public partial class Form1 : Form
     {
         private TextBox _FocusedTextBox;
-
         private Dictionary<Keys, string> _ValidKeys;
+        private bool _SkipButtonClickEvent;
 
         public Form1()
         {
@@ -54,6 +54,13 @@ namespace MultiCalc
 
         private void button_Click(object sender, EventArgs e)
         {
+            if (_SkipButtonClickEvent)
+            {
+                _SkipButtonClickEvent = false;
+
+                return;
+            }
+
             if (_FocusedTextBox != null && sender is Button button)
             {
                 if (button.Text == buttonEquals.Text)
@@ -93,6 +100,8 @@ namespace MultiCalc
         private void button_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             HandleKeyEvent(e.KeyCode, e.Shift);
+
+            _SkipButtonClickEvent = true;
         }
 
         private void HandleKeyEvent(Keys keyCode, bool shift)
