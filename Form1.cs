@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MultiCalc
@@ -93,7 +94,14 @@ namespace MultiCalc
         {
             if (sender is TextBox textBox)
             {
+                if (_FocusedTextBox != null)
+                {
+                    _FocusedTextBox.BackColor = Color.White;
+                }
+
                 _FocusedTextBox = textBox;
+
+                _FocusedTextBox.BackColor = Color.PaleGreen;
             }
         }
 
